@@ -1,0 +1,47 @@
+<!Doctype html>
+<html>
+<head>
+<title>Simple Delete Example</title>
+</head>
+<body>
+	<h1>Simple Delete Example</h1>
+	<div id="results"></div>
+    <form action="" method="post">
+        <input type="text" id="textInput" name="newNumber" />
+        <input type="submit" id="submitButton" value="Add" />
+    </form>
+</body>
+<script type="text/javascript"
+	src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+	function onDeleteClick() {
+		jQuery("#results").html("<img src=\"images/turningArrow.gif\" />");
+		var oData = {
+				action : "delete",
+				id : this.id
+			};
+		jQuery("#results").load("deleteFromDatabase.jsp", oData, function(){
+			jQuery(".deleteButton").click(onDeleteClick);
+			});
+		return false;
+	}
+	jQuery("#submitButton").click(function() {
+		jQuery("#results").html("<img src=\"images/turningArrow.gif\" />");
+		var oData = {
+			action : "add",
+			number : jQuery("#textInput").val()
+		};
+		jQuery("#results").load("deleteFromDatabase.jsp", oData, function(){
+			jQuery(".deleteButton").click(onDeleteClick);
+			});
+		jQuery("#textInput").val("");
+		return false;
+	});
+	jQuery(document).ready(function(){
+		jQuery("#results").html("<img src=\"images/turningArrow.gif\" />");
+		jQuery("#results").load("deleteFromDatabase.jsp", function(){
+			jQuery(".deleteButton").click(onDeleteClick);
+			});
+	});
+</script>
+</html>

@@ -1,0 +1,31 @@
+<!Doctype html>
+<html>
+<head>
+<title>Simple Database Example</title>
+</head>
+<body>
+	<h1>Simple Database Example</h1>
+	<div id="results"></div>
+    <form action="" method="post">
+        <input type="text" id="textInput" name="newNumber" />
+        <input type="submit" id="submitButton" value="Add" />
+    </form>
+</body>
+<script type="text/javascript"
+	src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+	jQuery("#submitButton").click(function() {
+		jQuery("#results").html("<img src=\"images/turningArrow.gif\" />");
+		var oData = {
+			number : jQuery("#textInput").val()
+		};
+		jQuery("#results").load("insertToDatabase.jsp", oData);
+		jQuery("#textInput").val("");
+		return false;
+	});
+	jQuery(document).ready(function(){
+		jQuery("#results").html("<img src=\"images/turningArrow.gif\" />");
+		jQuery("#results").load("insertToDatabase.jsp");
+	});
+</script>
+</html>
