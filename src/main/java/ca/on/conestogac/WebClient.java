@@ -8,27 +8,30 @@ import org.apache.http.impl.client.*;
 
 public class WebClient {
 	
-	public String downloadString(String sUrl) throws ClientProtocolException, IOException
+	private DefaultHttpClient httpClient;
+	
+	public WebClient()
 	{
-		DefaultHttpClient httpClient = new DefaultHttpClient();
-		try {
-
-			HttpGet getRequest = new HttpGet(sUrl);
-			getRequest.addHeader("accept", "application/json");
-
-            System.out.println("executing request " + getRequest.getURI());
-
-            // Create a response handler
-            ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            String responseBody = httpClient.execute(getRequest, responseHandler);
-            System.out.println("----------------------------------------");
-            System.out.println(responseBody);
-            System.out.println("----------------------------------------");
-            return responseBody;
- 		}
-		finally{
-			httpClient.getConnectionManager().shutdown();
-		}
+		this.httpClient = new DefaultHttpClient();
 	}
 
+	public void dispose()
+	{
+		this.httpClient.getConnectionManager().shutdown();
+	}
+
+	public String downloadString(String sUrl) throws ClientProtocolException,
+			IOException {
+
+		// put the URL in a HttpGet
+		HttpGet getRequest = new HttpGet(sUrl);
+
+		// Create a response handler that will create a String on our behalf 
+		ResponseHandler<String> responseHandler = new BasicResponseHandler();
+		
+		// Execute the request with the responseHandler
+		return this.httpClient.execute(getRequest,
+				responseHandler);
+	}
+	
 }
